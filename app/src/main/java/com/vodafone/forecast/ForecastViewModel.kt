@@ -2,29 +2,56 @@ package com.vodafone.forecast
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vodafone.domain.model.ForecastData
 import com.vodafone.domain.usecases.FetchForecastUseCase
+import com.vodafone.domain.usecases.GetLastCityUseCase
+import com.vodafone.domain.usecases.SaveCityUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+sealed class ForecastState {
+    data object Loading : ForecastState()
+    data class Success(val data: ForecastData) : ForecastState()
+    data class Error(val message: String) : ForecastState()
+}
+
 @HiltViewModel
 class ForecastViewModel @Inject constructor(
     private val fetchForecastUseCase: FetchForecastUseCase,
+    private val saveCityUseCase: SaveCityUseCase,
+    private val getLastCityUseCase: GetLastCityUseCase
 ) : ViewModel() {
 
     private val _forecastState = MutableStateFlow<ForecastState>(ForecastState.Loading)
     val forecastState: StateFlow<ForecastState> get() = _forecastState
 
-    suspend fun fetchForecast(cityName: String) {
+
+    private val _lastCity = MutableStateFlow<String?>(null)
+    val lastCity: StateFlow<String?> get() = _lastCity
+
+    init {
+        loadLastCity()
+    }
+
+    private  fun loadLastCity() {
+        _lastCity.value = getLastCityUseCase()
+    }
+
+    fun saveCity(cityName: String) {
+        saveCityUseCase(cityName)
+    }
+
+    fun fetchForecast(cityName: String) {
         viewModelScope.launch {
             _forecastState.value = ForecastState.Loading
             try {
                 val forecastData = fetchForecastUseCase(cityName)
                 _forecastState.value = ForecastState.Success(forecastData)
             } catch (e: Exception) {
-                _forecastState.value = ForecastState.Error(e.localizedMessage ?: "Unknown Error")
+                _forecastState.value = ForecastState.Error(e.message ?: "Unknown Error")
             }
         }
     }

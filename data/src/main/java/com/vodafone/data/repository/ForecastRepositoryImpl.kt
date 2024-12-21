@@ -1,10 +1,23 @@
 package com.vodafone.data.repository
 
-import com.baims.dailyforecast.domain.model.WeatherEntity
+import com.vodafone.data.remote.ForecastApiService
+import com.vodafone.data.remote.RemoteDataSource
+import com.vodafone.data.toDomainModel
+import com.vodafone.domain.model.ForecastData
 import com.vodafone.domain.repository.ForecastRepository
+import javax.inject.Inject
 
-class ForecastRepositoryImpl: ForecastRepository {
-    override suspend fun getForecastList(cityName: String): List<WeatherEntity> {
-        TODO("Not yet implemented")
+class ForecastRepositoryImpl @Inject constructor(
+    private val forecastApiService: ForecastApiService,
+) : ForecastRepository {
+    override suspend fun getForecastData(cityName: String): ForecastData {
+        return forecastApiService.getWeather(cityName).toDomainModel()
     }
+  /*  override fun saveLastCity(cityName: String) {
+        ForecastRepository.saveLastCity(cityName)
+    }
+
+    override fun getLastCity(): String? {
+        return ForecastRepository.getLastCity()
+    }*/
 }

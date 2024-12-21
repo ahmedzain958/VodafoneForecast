@@ -27,11 +27,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "1.8"
     }
 }
 
@@ -44,7 +44,8 @@ dependencies {
     implementation(libs.retrofitConverterGson)
     implementation(libs.gson)
     implementation(libs.hilt.android)
-    implementation(project(":domain"))
+    api(project(":domain"))
+    kapt(libs.hilt.compiler)
     ksp(libs.hilt.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
