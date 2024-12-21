@@ -2,8 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp.android)
-    id("kotlin-kapt")
-    alias(libs.plugins.hilt.android)
+    kotlin("kapt")
 }
 
 android {
@@ -43,11 +42,13 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofitConverterGson)
     implementation(libs.gson)
-    implementation(libs.hilt.android)
-    api(project(":domain"))
-    kapt(libs.hilt.compiler)
-    ksp(libs.hilt.compiler)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp3.logging.interceptor)
+    implementation(project(":domain"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+}
+kapt{
+    correctErrorTypes = true
 }

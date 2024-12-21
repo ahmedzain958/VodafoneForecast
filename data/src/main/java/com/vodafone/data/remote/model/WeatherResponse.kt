@@ -2,8 +2,6 @@ package com.vodafone.data.remote.model
 import com.google.gson.annotations.SerializedName
 
 data class WeatherResponse(
-    @SerializedName("coord")
-    val coord: Coord?,
     @SerializedName("weather")
     val weather: List<Weather?>?,
     @SerializedName("base")
@@ -12,10 +10,6 @@ data class WeatherResponse(
     val main: Main?,
     @SerializedName("visibility")
     val visibility: Int?,
-    @SerializedName("wind")
-    val wind: Wind?,
-    @SerializedName("clouds")
-    val clouds: Clouds?,
     @SerializedName("dt")
     val dt: Int?,
     @SerializedName("sys")
@@ -28,17 +22,6 @@ data class WeatherResponse(
     val name: String?,
     @SerializedName("cod")
     val cod: Int?
-)
-data class Clouds(
-    @SerializedName("all")
-    val all: Int?
-)
-
-data class Coord(
-    @SerializedName("lon")
-    val lon: Double?,
-    @SerializedName("lat")
-    val lat: Double?
 )
 
 data class Main(
@@ -81,11 +64,4 @@ data class Weather(
     val description: String?,
     @SerializedName("icon")
     val icon: String?
-)
-
-data class Wind(
-    @SerializedName("speed")
-    val speed: Double?,
-    @SerializedName("deg")
-    val deg: Int?
 )

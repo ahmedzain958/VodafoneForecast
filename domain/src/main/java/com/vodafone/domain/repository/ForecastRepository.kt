@@ -4,6 +4,8 @@ import com.vodafone.domain.model.ForecastData
 
 interface ForecastRepository {
     suspend fun getForecastData(cityName: String): ForecastData
-    /*fun saveLastCity(cityName: String)
-    fun getLastCity(): String?*/
+    suspend fun getWeeklyForecast(cityName: String): List<ForecastData>
+
+    fun saveLastCity(cityName: String)
+    fun getLastCity(): String?
 }

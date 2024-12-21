@@ -2,8 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp.android)
-    id("kotlin-kapt")
-    alias(libs.plugins.hilt.android)
+    kotlin("kapt")
 }
 
 android {
@@ -37,11 +36,12 @@ android {
 
 dependencies {
     implementation(libs.androidx.core.ktx)
-    implementation(libs.hilt.android)
     implementation(libs.androidx.appcompat)
-    ksp(libs.hilt.compiler)
-    implementation(libs.material)
+    api(libs.koin.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+}
+kapt{
+    correctErrorTypes = true
 }

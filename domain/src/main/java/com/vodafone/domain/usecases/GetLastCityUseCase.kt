@@ -1,12 +1,11 @@
 package com.vodafone.domain.usecases
 
 import com.vodafone.domain.repository.ForecastRepository
-import javax.inject.Inject
-import javax.inject.Singleton
 
-class GetLastCityUseCase @Inject constructor(
+class GetLastCityUseCase (
+    private val forecastRepository: ForecastRepository,
 ) {
      operator fun invoke(): String? {
-        return " forecastRepository.getForecastData()"
+        return forecastRepository.getLastCity()
     }
 }
