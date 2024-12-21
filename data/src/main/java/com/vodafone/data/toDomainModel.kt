@@ -1,5 +1,6 @@
 package com.vodafone.data
 
+import com.vodafone.data.remote.model.Day
 import com.vodafone.data.remote.model.ForecastResponse
 import com.vodafone.data.remote.model.WeatherResponse
 import com.vodafone.domain.model.ForecastData
@@ -12,10 +13,11 @@ fun WeatherResponse.toDomainModel(): ForecastData {
         "CLOUDS" -> WeatherCondition.CLOUDS
         "RAIN" -> WeatherCondition.RAIN
         "CLEAR" -> WeatherCondition.CLEAR
-        else -> WeatherCondition.UNKNOWN
+        else -> WeatherCondition.SNOW
     }
 
     return ForecastData(
+        date = dt?.toFormattedDate() ?: "Unknown Date",
         temperature = main?.temp ?: 0.0,
         condition = condition
     )
@@ -26,18 +28,18 @@ fun String.toWeatherCondition(): WeatherCondition {
         "CLOUDS" -> WeatherCondition.CLOUDS
         "RAIN" -> WeatherCondition.RAIN
         "CLEAR" -> WeatherCondition.CLEAR
-        else -> WeatherCondition.UNKNOWN
+        else -> WeatherCondition.SNOW
     }
 }
 
 fun ForecastResponse.toDomainModel(): List<ForecastData> {
-    return this.list?.mapNotNull { day ->
+    return this.list?.mapNotNull { day: Day? ->
         day?.let {
             ForecastData(
                 date = it.dt?.toFormattedDate() ?: "Unknown Date",
-                temperature = it.temp?.day ?: 0.0,
+                temperature = it.temp.day ?: 0.0,
                 condition = it.weather?.firstOrNull()?.main?.toWeatherCondition()
-                    ?: WeatherCondition.UNKNOWN
+                    ?: WeatherCondition.SNOW
             )
         }
     } ?: emptyList()
