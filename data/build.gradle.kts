@@ -45,7 +45,6 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.hilt.android)
     api(project(":domain"))
-    kapt(libs.hilt.compiler)
     ksp(libs.hilt.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

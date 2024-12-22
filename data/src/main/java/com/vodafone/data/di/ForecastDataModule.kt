@@ -1,11 +1,16 @@
 package com.vodafone.data.di
 
+import android.content.Context
+import android.content.SharedPreferences
+import com.vodafone.data.local.LocalDataSource
 import com.vodafone.data.remote.ForecastApiService
+import com.vodafone.data.remote.RemoteDataSource
 import com.vodafone.data.repository.ForecastRepositoryImpl
 import com.vodafone.domain.repository.ForecastRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -14,8 +19,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 object ForecastDataModule {
-
-
     @Provides
     @Singleton
     fun provideCitiesRetrofit(): Retrofit {
@@ -32,29 +35,31 @@ object ForecastDataModule {
     }
 
     @Provides
+    fun provideRemoteDataSource(
+        apiService: ForecastApiService,
+    ): RemoteDataSource =
+        RemoteDataSource(apiService)
+
+    @Provides
+    fun provideLocalDataSource(
+        sharedPreferences: SharedPreferences,
+    ): LocalDataSource =
+        LocalDataSource(sharedPreferences)
+
+    @Provides
     fun provideForecastRepository(
-        forecastApiService: ForecastApiService,
+        localDataSource: LocalDataSource, remoteDataSource: RemoteDataSource,
     ): ForecastRepository {
-        return ForecastRepositoryImpl(forecastApiService)
+        return ForecastRepositoryImpl(remoteDataSource, localDataSource)
     }
-    /*
-        @Provides
-        fun provideRemoteDataSource(
-            apiService: ForecastApiService,
-        ): RemoteDataSource =
-            RemoteDataSource(apiService)
 
-        @Provides
-        @Singleton
-        fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
-            return context.getSharedPreferences("weather_prefs", Context.MODE_PRIVATE)
-        }
 
-        @Provides
-        fun provideLocalDataSource(
-            sharedPreferences: SharedPreferences,
-        ): LocalDataSource =
-            LocalDataSource(sharedPreferences)*/
+    @Provides
+    @Singleton
+    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
+        return context.getSharedPreferences("weather_prefs", Context.MODE_PRIVATE)
+    }
+
 
 }
 

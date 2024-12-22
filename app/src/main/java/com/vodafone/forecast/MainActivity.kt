@@ -19,15 +19,21 @@ import com.vodafone.forecast.ui.theme.VodafoneForecastTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             VodafoneForecastTheme {
-                val viewModel: ForecastViewModel = hiltViewModel()
-                val lastCity by viewModel.lastCity.collectAsState()
-                ForecastScreen(viewModel = viewModel, savedCity = lastCity)
+                ForecastScreen2(
+                    cityInputViewModel
+                    = hiltViewModel(),
+                    forecastListViewModel
+                    = hiltViewModel(),
+                )
+//                ForecastScreen(viewModel = koinViewModel())
+
             }
         }
     }
