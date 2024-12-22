@@ -55,13 +55,18 @@ class ForecastViewModel(
                 val forecastList = viewModelScope.async {
                     fetchForecastUseCase.getWeeklyForecast(cityName)
                 }
+                val weather = currentWeather.await()
                 _forecastState.value =
-                    ForecastState.Success(currentWeather.await(), forecastList.await())
+                    ForecastState.Success(weather.copy(temperature = kelvinToCelsius(weather.temperature)), forecastList.await())
                 saveCity(cityName)
             } catch (e: Exception) {
                 _forecastState.value = ForecastState.Error(e.message ?: "Unknown Error")
             }
         }
+    }
+    fun kelvinToCelsius(kelvin: Double): Double {
+        val celsius = kelvin - 273.15
+        return String.format("%.2f", celsius).toDouble()
     }
 }
 

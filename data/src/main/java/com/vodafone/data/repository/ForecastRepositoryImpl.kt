@@ -11,7 +11,7 @@ class ForecastRepositoryImpl (
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ) : ForecastRepository {
-    override suspend fun getForecastData(cityName: String): ForecastData {
+    override suspend fun getWeather(cityName: String): ForecastData {
         return remoteDataSource.getWeather(cityName).toDomainModel()
     }
 

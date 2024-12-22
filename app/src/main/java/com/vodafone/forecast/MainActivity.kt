@@ -13,7 +13,14 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             VodafoneForecastTheme {
-                ForecastScreen(viewModel = koinViewModel())
+                ForecastScreen2(
+                    cityInputViewModel
+                    = koinViewModel(),
+                    forecastListViewModel
+                    = koinViewModel(),
+                )
+//                ForecastScreen(viewModel = koinViewModel())
+
             }
         }
     }
