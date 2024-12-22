@@ -15,7 +15,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -45,7 +44,6 @@ fun ForecastScreen(viewModel: ForecastViewModel) {
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            // Search Input
             TextField(
                 value = cityName,
                 onValueChange = { cityName = it },
@@ -53,7 +51,6 @@ fun ForecastScreen(viewModel: ForecastViewModel) {
                 modifier = Modifier.fillMaxWidth()
             )
 
-            // Search Button
             Button(
                 onClick = { viewModel.fetchForecast(cityName) },
                 modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -61,7 +58,6 @@ fun ForecastScreen(viewModel: ForecastViewModel) {
                 Text("Search")
             }
 
-            // State Handling
             when (forecastState) {
                 is ForecastState.Loading -> {
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
@@ -70,7 +66,6 @@ fun ForecastScreen(viewModel: ForecastViewModel) {
                 is ForecastState.Success -> {
                     val state = forecastState as ForecastState.Success
 
-                    // Display Current Weather
                     Text(
                         text = "Current Weather:",
                         style = MaterialTheme.typography.headlineSmall
@@ -82,7 +77,6 @@ fun ForecastScreen(viewModel: ForecastViewModel) {
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Display 7-Day Forecast
                     Text(
                         text = "7-Day Forecast:",
                         style = MaterialTheme.typography.headlineSmall
