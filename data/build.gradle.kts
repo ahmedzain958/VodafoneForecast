@@ -36,7 +36,7 @@ android {
 }
 
 dependencies {
-
+    api(project(":domain"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -44,16 +44,12 @@ dependencies {
     implementation(libs.retrofitConverterGson)
     implementation(libs.gson)
     implementation(libs.hilt.android)
-    api(project(":domain"))
-    testImplementation(libs.runner)
-    testImplementation(libs.junit.junit)
-    testImplementation(libs.junit.junit)
-    testImplementation(libs.junit.junit)
-    androidTestImplementation(libs.androidx.junit.ktx)
     ksp(libs.hilt.compiler)
+    testImplementation(libs.runner)
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
-    testImplementation ("org.robolectric:robolectric:4.10")
+    testImplementation(libs.robolectric)
+    androidTestImplementation(libs.androidx.junit.ktx)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.runner)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -25,7 +25,6 @@ class ForecastRepositoryImplTest {
 
     @Before
     fun setUp() {
-        // Mock the dependencies
         remoteDataSource = mockk()
         localDataSource = mockk()
         forecastRepository = ForecastRepositoryImpl(remoteDataSource, localDataSource)
@@ -82,31 +81,22 @@ class ForecastRepositoryImplTest {
 
     @Test
     fun `test getLastCity returns last city correctly`() {
-        // Prepare mock response for getLastCity
         every { localDataSource.getLastCity() } returns "Cairo"
 
-        // Call the method to get the last city
         val cityName = forecastRepository.getLastCity()
 
-        // Verify the result
         assertEquals("Cairo", cityName)
-
-        // Verify that the local data source was called
         verify { localDataSource.getLastCity() }
     }
 
     @Test
     fun `test getLastCity returns null if no city is saved`() {
-        // Prepare mock response for getLastCity when no city is saved
         every { localDataSource.getLastCity() } returns null
 
-        // Call the method to get the last city
         val cityName = forecastRepository.getLastCity()
 
-        // Verify the result
         assertNull(cityName)
 
-        // Verify that the local data source was called
         verify { localDataSource.getLastCity() }
     }
 }
