@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.vodafone.forecast.ui.theme.VodafoneForecastTheme
+import com.vodafone.weather.ForecastScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -15,7 +16,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             VodafoneForecastTheme {
-                ForecastScreen(
+               ForecastScreen(
                     cityInputViewModel
                     = hiltViewModel(),
                     forecastListViewModel

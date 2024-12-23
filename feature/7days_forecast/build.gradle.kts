@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp.android)
     id("kotlin-kapt")
@@ -7,17 +7,14 @@ plugins {
 }
 
 android {
-    namespace = "com.vodafone.forecast"
+    namespace = "com.vodafone.a7days_forecast"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.vodafone.forecast"
         minSdk = 26
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -38,7 +35,6 @@ android {
     }
     buildFeatures {
         compose = true
-        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -63,10 +59,9 @@ dependencies {
     implementation(libs.hilt.android)
     api(project(":domain"))
     api(project(":data"))
-    api(project(":feature:weather"))
-    api(project(":feature:7days_forecast"))
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation(project(":core2"))
     androidTestImplementation(libs.androidx.junit.ktx)
     kapt(libs.hilt.compiler)
     testImplementation(libs.junit)

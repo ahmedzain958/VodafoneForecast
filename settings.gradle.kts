@@ -23,4 +23,6 @@ rootProject.name = "VodafoneForecast"
 include(":app")
 include(":data")
 include(":domain")
-include(":core")
+include(":feature:weather")
+include(":feature:7days_forecast")
+include(":core2")

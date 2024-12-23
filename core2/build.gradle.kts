@@ -1,23 +1,17 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.ksp.android)
-    id("kotlin-kapt")
-    alias(libs.plugins.hilt.android)
 }
 
 android {
-    namespace = "com.vodafone.forecast"
-    compileSdk = 35
+    namespace = "com.vodafone.core"
+    compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.vodafone.forecast"
         minSdk = 26
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -61,21 +55,10 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.hilt.android)
-    api(project(":domain"))
-    api(project(":data"))
-    api(project(":feature:weather"))
-    api(project(":feature:7days_forecast"))
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
     androidTestImplementation(libs.androidx.junit.ktx)
-    kapt(libs.hilt.compiler)
-    testImplementation(libs.junit)
-    testImplementation(libs.mockk)
-    androidTestImplementation(libs.mockk.android)
     androidTestImplementation(libs.androidx.runner)
-    androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
 }
