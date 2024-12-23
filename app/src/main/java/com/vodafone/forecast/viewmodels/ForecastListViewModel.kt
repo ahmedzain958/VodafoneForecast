@@ -19,9 +19,10 @@ sealed class ForecastListState {
     data class Success(val forecastList: List<ForecastData>) : ForecastListState()
     data class Error(val message: String) : ForecastListState()
 }
+
 @HiltViewModel
 class ForecastListViewModel @Inject constructor(
-    private val fetchForecastUseCase: FetchForecastUseCase
+    private val fetchForecastUseCase: FetchForecastUseCase,
 ) : ViewModel() {
 
     private val _forecastListState = MutableStateFlow<ForecastListState>(ForecastListState.Loading)
@@ -39,18 +40,6 @@ class ForecastListViewModel @Inject constructor(
                         _forecastListState.value = ForecastListState.Error(e.message ?: "Error")
                     }
                 }
-            }
-        }
-    }
-
-    private fun fetchForecastList(cityName: String) {
-        viewModelScope.launch {
-            _forecastListState.value = ForecastListState.Loading
-            try {
-                val forecastList = fetchForecastUseCase.getWeeklyForecast(cityName)
-                _forecastListState.value = ForecastListState.Success(forecastList)
-            } catch (e: Exception) {
-                _forecastListState.value = ForecastListState.Error(e.message ?: "Unknown Error")
             }
         }
     }

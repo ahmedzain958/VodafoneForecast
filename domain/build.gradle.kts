@@ -40,6 +40,7 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.androidx.appcompat)
     ksp(libs.hilt.compiler)
+    testImplementation(libs.mockk)
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
