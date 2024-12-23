@@ -15,8 +15,4 @@ class FetchForecastUseCase @Inject constructor(
     suspend fun getWeeklyForecast(cityName: String): List<ForecastData> {
         return forecastRepository.getWeeklyForecast(cityName)
     }
-
-    fun kelvinToCelsius(kelvin: Double): Double {
-        return kelvin.minus(273.15)
-    }
 }

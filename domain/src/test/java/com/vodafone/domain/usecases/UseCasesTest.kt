@@ -5,6 +5,7 @@ import com.vodafone.domain.model.WeatherCondition
 import com.vodafone.domain.repository.ForecastRepository
 import org.junit.Assert.*
 import io.mockk.*
+import kelvinToCelsius
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
@@ -47,7 +48,7 @@ class UseCasesTest {
     @Test
     fun `test FetchForecastUseCase converts Kelvin to Celsius correctly`() {
         val kelvinTemperature = 300.0
-        val celsiusTemperature = fetchForecastUseCase.kelvinToCelsius(kelvinTemperature)
+        val celsiusTemperature = kelvinToCelsius(kelvinTemperature)
 
         assertEquals(26.85, celsiusTemperature, 0.01)
     }

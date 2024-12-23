@@ -1,4 +1,4 @@
-package com.vodafone.forecast
+package com.vodafone.forecast.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -18,15 +18,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.vodafone.forecast.ui.CityInputScreen
-import com.vodafone.forecast.ui.ForecastListScreen
 import com.vodafone.forecast.viewmodels.CityInputViewModel
 import com.vodafone.forecast.viewmodels.ForecastListIntent
 import com.vodafone.forecast.viewmodels.ForecastListViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ForecastScreen2(
+fun ForecastScreen(
     cityInputViewModel: CityInputViewModel,
     forecastListViewModel: ForecastListViewModel,
 ) {

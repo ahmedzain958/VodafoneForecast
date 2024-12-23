@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.hilt.android)
     api(project(":domain"))
     api(project(":data"))
+    api(project(":core"))
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
     androidTestImplementation(libs.androidx.junit.ktx)

@@ -5,8 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.vodafone.domain.usecases.FetchForecastUseCase
 import com.vodafone.domain.usecases.GetLastCityUseCase
 import com.vodafone.domain.usecases.SaveCityUseCase
-import com.vodafone.forecast.ForecastState
+import com.vodafone.forecast.ui.ForecastState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kelvinToCelsius
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -53,10 +54,4 @@ class CityInputViewModel @Inject constructor(
             }
         }
     }
-
-    fun kelvinToCelsius(kelvin: Double): Double {
-        val celsius = kelvin - 273.15
-        return String.format("%.2f", celsius).toDouble()
-    }
-
 }

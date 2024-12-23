@@ -8,7 +8,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
-import com.vodafone.forecast.WeatherInfo
 import com.vodafone.forecast.viewmodels.ForecastListIntent
 import com.vodafone.forecast.viewmodels.ForecastListState
 import com.vodafone.forecast.viewmodels.ForecastListViewModel
@@ -23,7 +22,7 @@ fun ForecastListScreen(viewModel: ForecastListViewModel, cityName: String) {
 
     when (forecastListState) {
         is ForecastListState.Loading -> {
-            CircularProgressIndicator(/*modifier = Modifier.align(Alignment.CenterHorizontally)*/)
+            CircularProgressIndicator()
         }
 
         is ForecastListState.Success -> {
